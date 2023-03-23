@@ -18,7 +18,7 @@ function Onboarding() {
     const emailAddressIsInvalid = !emailAddressIsValid && emailTouched
 
     const pressHandler = async () => {
-        console.log('pressed')
+
         try {
             await AsyncStorage.setItem('userOnBoarded', "true")
             await AsyncStorage.setItem('firstName', JSON.stringify(firstName))

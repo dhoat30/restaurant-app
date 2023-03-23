@@ -51,8 +51,7 @@ function PersonalInfoForm() {
     }, [])
     const saveHandler = async () => {
         try {
-            console.log(formData)
-            console.log(notification)
+
             await AsyncStorage.setItem('firstName', JSON.stringify(formData.firstName))
             await AsyncStorage.setItem('lastName', JSON.stringify(formData.lastName))
             await AsyncStorage.setItem('phone', JSON.stringify(formData.phone))

@@ -8,8 +8,12 @@ import SplashScreen from './screens/SplashScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Profile from './screens/Profile';
 import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import Home from './screens/Home';
+import { useFonts } from 'expo-font';
+
 
 const Stack = createNativeStackNavigator();
+
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -22,11 +26,11 @@ const theme = {
 
 
 export default function App() {
-
   const [userStatus, setUserStatus] = useState({
     loading: true,
     isOnBoardingCompleted: false
   })
+
   useEffect(() => {
     (async () => {
       try {
@@ -44,17 +48,35 @@ export default function App() {
       }
     })();
   }, [])
-  console.log(userStatus)
+
+  const [fontsLoaded] = useFonts({
+    "markazi": require('./assets/fonts/MarkaziText-Regular.ttf'),
+    "karla": require('./assets/fonts/Karla-Regular.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return
+
+  }
+
+
+  // if (!loaded) {
+  //   return null;
+  // }
   // if (userStatus.loading) {
   //   return <SplashScreen />
   // }
 
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={theme} >
       <NavigationContainer>
         <Stack.Navigator>
           {userStatus.isOnBoardingCompleted ?
-            <Stack.Screen name="Profile" component={Profile} />
+            (<>
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Profile" component={Profile} />
+            </>
+            )
             :
             <Stack.Screen name="Onboarding" component={Onboarding} />
           }

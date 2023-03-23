@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TextInput, Pressable, KeyboardAvoidingVi
 import Svg, { Circle, Rect, Path } from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function Header({ props }) {
+function Header({ showBackButton }) {
     const [initials, setInitials] = useState('')
 
     useEffect(() => {
@@ -22,16 +22,19 @@ function Header({ props }) {
             }
         })();
     }, [])
-    console.log(initials)
 
     return (
 
         <View style={styles.header}>
-            <Pressable style={styles.backButton}>
-                <Svg width="20" height="14" viewBox="0 0 20 14" fill="none" {...props}>
-                    <Path d="M7.57 0.93L1.5 7L7.57 13.07M18.5 7H1.67" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                </Svg>
-            </Pressable>
+            <View style={{ width: 40 }}>
+                {showBackButton &&
+                    <Pressable style={styles.backButton}>
+                        <Svg width="20" height="14" viewBox="0 0 20 14" fill="none" {...showBackButton}>
+                            <Path d="M7.57 0.93L1.5 7L7.57 13.07M18.5 7H1.67" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        </Svg>
+                    </Pressable>
+                }
+            </View>
             {/* <Image style={styles.image} source={require('../../assets/Logo.png')} /> */}
             <Image style={styles.image} source={require('../../assets/Logo.png')} />
             <View style={styles.profileBackground}>
